@@ -6,8 +6,8 @@ import java.util.HashSet;
 
 /**
  * 字符串的全排列
- * 牛科网原题： <link>https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&tqId=11180&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking </link>
- * 问题分析：<link>https://www.cnblogs.com/cxjchen/p/3932949.html</link>
+ * 牛科网原题： https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&tqId=11180&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
+ * 问题分析：https://www.cnblogs.com/cxjchen/p/3932949.html
  *
  * Created by Drelang on 2019/08/16 07:59
  */
