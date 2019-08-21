@@ -70,3 +70,43 @@ public class QuickSort {
         System.out.println(Arrays.toString(arr));
     }
 }
+
+// 练习版
+class Sort {
+    void sort(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return;
+        }
+        sort(arr, 0, arr.length-1);
+    }
+
+    void sort(int[] arr, int i, int j) {
+        if (i >= j) {
+            return;
+        }
+        int p = partion(arr, i, j);
+        sort(arr, i, p);
+        sort(arr, p+1, j);
+    }
+
+    int partion(int[] arr, int i, int j) {
+        int judge = arr[i];
+        while (i < j) {
+            while (i < j && arr[j] >= judge) {
+                j--;
+            }
+            swap(arr, i, j);
+            while (i < j && arr[i] <= judge) {
+                i++;
+            }
+            swap(arr, i, j);
+        }
+        return i;
+    }
+
+    void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+}
