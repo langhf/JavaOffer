@@ -3,6 +3,11 @@ package cn.drelang.algorithm.array;
 import java.util.ArrayList;
 
 /**
+ * 可参考剑指 offer。
+ * 方法一：先排序，后寻找
+ * 方法二：用快排的思想，partition 函数
+ * 方法三：用容量为 k 的最大堆
+ *
  * Created by Drelang on 2019/08/21 08:17
  */
 
