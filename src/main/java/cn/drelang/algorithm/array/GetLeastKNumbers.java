@@ -36,19 +36,18 @@ public class GetLeastKNumbers {
     }
 
     private int partition(int[] arr, int begin, int end) {
-        if (end == begin) {
-            return begin;
-        }
-        int r = arr[begin];
-        while (begin < end) {
-            while (begin < end && arr[end] > r) {
-                end--;
+        if (begin < end) {
+            int t = arr[begin];
+            while (begin < end) {
+                while (begin < end && arr[end] >= t) {  // 此处应该是大于等于，不然若数组中存在相同的元素的话，就会因为此处而进入死循环
+                    end--;
+                }
+                swap(arr, begin, end);
+                while (begin < end && arr[begin] <= t) {    // 此处同上一处
+                    begin++;
+                }
+                swap(arr, begin, end);
             }
-            swap(arr, begin, end);
-            while (begin < end && arr[begin] < r) {
-                begin++;
-            }
-            swap(arr, begin, end);
         }
         return begin;
     }
