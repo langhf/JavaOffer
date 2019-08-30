@@ -11,22 +11,30 @@ import java.util.Arrays;
 public class MergeSort {
     public static void main(String[] args) {
         int[] arr1 = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-        int[] arr2 = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-        int[] arr3 = {1, 5, 3, 7, 43, 12, 32, 32, 12};
+        int[] arr2 = {9, 8, 7, 6, 5, 4, 3, 2, 8, 4, 1, 0};
+        int[] arr3 = {1, 1, 1, 1, 1};
         int[] arr4 = null;
         int[] arr5 = {};
 
-        sort(arr1);
-        sort(arr2);
-        sort(arr3);
-        sort(arr4);
-        sort(arr5);
-
+        MergeSort2 mergeSort2 = new MergeSort2();
+        mergeSort2.sort(arr1);
         show(arr1);
+        mergeSort2.sort(arr2);
         show(arr2);
+        mergeSort2.sort(arr3);
         show(arr3);
-        show(arr4);
-        show(arr5);
+
+//        sort(arr1);
+//        sort(arr2);
+//        sort(arr3);
+//        sort(arr4);
+//        sort(arr5);
+//
+//        show(arr1);
+//        show(arr2);
+//        show(arr3);
+//        show(arr4);
+//        show(arr5);
 
     }
 
@@ -70,5 +78,45 @@ public class MergeSort {
 
     private static void show(int[] arr) {
         System.out.println(Arrays.toString(arr));
+    }
+}
+
+/**
+ * 练手用
+ */
+class MergeSort2 {
+    void sort(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return;
+        }
+        int[] copy = new int[arr.length];
+        doSort(arr, 0, arr.length-1, copy);
+    }
+
+    void doSort(int[] arr, int begin, int end, int[] copy) {
+        if (begin < end) {
+            int mid = (begin + end) >> 1;
+            doSort(arr, begin, mid, copy);
+            doSort(arr, mid+1, end, copy);
+            int index = end, i = mid, j = end;
+            while (i >= begin && j >= mid+1) {
+                if (arr[i] > arr[j]) {
+                    copy[index--] = arr[i--];
+                } else {
+                    copy[index--] = arr[j--];
+                }
+            }
+
+            while (i >= begin) {
+                copy[index--] = arr[i--];
+            }
+            while (j >= mid+1) {
+                copy[index--] = arr[j--];
+            }
+
+            for (int k=begin; k<=end; k++) {
+                arr[k] = copy[k];
+            }
+        }
     }
 }
