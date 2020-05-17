@@ -5,61 +5,74 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * 动态代理
+ * 动态代理: 根据真实业务对象创建新的伪对象。
  * Created by Drelang on 2019/08/13 19:49
  */
 
 
 public class DynamicProxy {
     public static void main(String[] args) {
-        MaoTai maoTai = new MaoTai();
-        BaiJiu baiJiu = new BaiJiu();
-        OrangeJuice orangeJuice = new OrangeJuice();
+        Wine wine = (Wine) new MyProxy().bind(new MaoTai());
+        Wine wine1 = (Wine) new MyProxy().bind(new BaiJiu());
+        Juice juice = (Juice) new MyProxy().bind(new OrangeJuice());
 
-        InvocationHandler sell1 = new Handler(maoTai);
-        InvocationHandler sell2 = new Handler(baiJiu);
-        InvocationHandler sell3 = new Handler(orangeJuice);
-
-        Wine dynamicProxy1 = (Wine) Proxy.newProxyInstance(MaoTai.class.getClassLoader(), MaoTai.class.getInterfaces(), sell1);
-        Wine dynamicProxy2 = (Wine) Proxy.newProxyInstance(BaiJiu.class.getClassLoader(), BaiJiu.class.getInterfaces(), sell2);
-        Juice dynamicProxy3 = (Juice) Proxy.newProxyInstance(OrangeJuice.class.getClassLoader(), OrangeJuice.class.getInterfaces(), sell3);
-
-        dynamicProxy1.sell();
-        dynamicProxy2.sell();
-        dynamicProxy3.sale();
+        wine.sell();
+        wine.sell1();
+        wine1.sell();
+        wine1.sell1();
+        juice.sale();
     }
 }
 
 // 需要用到一个实现了 InvocationHandler 的类
-class Handler implements InvocationHandler {
-    private Object object;
+class MyProxy implements InvocationHandler {
+    private Object target;
 
-    Handler(Object object) {
-        this.object = object;
+    public Object bind(Object target) {
+        this.target = target;
+        return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+    }
+
+    public boolean connect() {
+        System.out.println("销售开始 销售者：" + this.target.getClass().getSimpleName());
+        return true;
+    }
+
+    public void close() {
+        System.out.println("销售结束");
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("销售开始 销售者是：" + this.getClass().getSimpleName());
-        method.invoke(this.object, args);
-        System.out.println("销售结束");
-        return null;
+        Object res = null;
+        if (this.connect()) {
+            res = method.invoke(this.target, args);
+            this.close();
+        }
+        return res;
     }
 }
 
 /* ----------------- interface 1 ------------------- */
 interface Wine {
     void sell();
+    void sell1();
 }
 
 class MaoTai implements Wine {
     public void sell() {
         System.out.println("我卖的是茅台酒");
     }
+    public void sell1() {
+        System.out.println("我卖的是茅台酒1");
+    }
 }
 
 class BaiJiu implements Wine {
     public void sell() {
         System.out.println("我卖的是小白酒");
+    }
+    public void sell1() {
+        System.out.println("我卖的是小白酒1");
     }
 }
 
