@@ -1,4 +1,4 @@
-package cn.drelang.java.io;
+package cn.drelang.java.advanced.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
