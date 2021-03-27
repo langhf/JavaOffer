@@ -12,8 +12,12 @@ import java.io.PrintWriter;
 
 public class PrintWriterTest {
     public static void main(String[] args) throws Exception {
-        String path = "/Users/drelang/Documents/repository/Java/offer/src/main/java/cn/drelang/java/advanced/io/files";
+        String userDir = System.getProperty("user.dir");    // /Users/drelang/Documents/repository/Java/offer
+        System.out.println(userDir);
+
+        String path = "./src/main/java/cn/drelang/java/advanced/io/files";  // 当前目录为用户空间目录，即 userDir 所制定的值
         File file = new File(path, "print_writer_test.txt");    // 文件不存在的话，可以自动创建
+
 
         PrintWriter pw = new PrintWriter(file);
         String name = "小强子";
